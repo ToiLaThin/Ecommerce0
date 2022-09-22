@@ -1,0 +1,55 @@
+﻿@page "/detail"
+@model Ecommerce0.Pages.Me.DetailModel
+@{
+}
+
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-img-top">
+            <img src="@Model.Book.Image" alt="xxx" style="width: 100%; height: auto;" />
+        </div>
+
+        <div class="card-body">
+            <h2 class="p-0 m-0">@Model.Book.Title</h2>
+            <small class="font-italic font-weight-light">Modified on: @(Model.Book.ModifiedDate.DayOfWeek), @(Model.Book.ModifiedDate.ToShortDateString()) at @(Model.Book.ModifiedDate.ToShortTimeString())</small>
+            <br />
+            @if (Model.Book.Category != null)
+            {
+                if (Model.Book.Category.Name != null)
+                {
+                    <strong class="h5 p-2">Category:</strong>
+                    <span class="text-sm-start text-secondary h6">@Model.Book.Category.Name</span>
+                    <hr/>
+                }
+            }
+            <br />
+            <p>@Model.Book.Description</p>
+
+        </div>
+
+        <div class="card-footer">
+            <span class="text-success">@Model.Book.Price$</span>
+        </div>
+    </div>
+    <br />
+
+    <div class="container row">
+        <div class="col-12 justify-content-center align-items-center">
+            <a asp-page="/shop/cart" asp-page-handler="BuyNow" asp-route-id="@Model.Book.Id" class="btn btn-primary">
+                Add To <i class="fas fa-cart-plus"></i>
+            </a>
+        </div>
+    </div>
+    <div class="container mb-4 clearfix">
+        <div class="float-end">
+            @*Có / trước me để nó không thêm sau vào url hiện tại*@
+            <a href="/me/index/" class="btn btn-outline-secondary">Back</a>
+            @if(User.Identity.IsAuthenticated)
+            {
+            <a href="/delete/?id=@Model.Book.Id" class="btn btn-outline-danger">Delete</a>
+            <a href="/edit/?id=@Model.Book.Id" class="btn btn-outline-success">Edit</a>
+            }
+        </div>
+    </div>
+    
+</div>

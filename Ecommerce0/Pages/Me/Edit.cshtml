@@ -1,0 +1,79 @@
+﻿@page "/edit/"
+@model Ecommerce0.Pages.Me.EditModel
+@{
+
+}
+
+<div class="container-fluid col rounded border p-3 mb-5 shadow-sm">
+    <form method="post" class="clearfix">
+        @*Lưu id của cuốn sách được chọn khi get để sùng cho onPost method*@
+        <input type="hidden" asp-for="@Model.Book.Id" />
+
+        @*Lưu thời gian chỉnh sửa, mỗi khi update/ create thì thời gian này sẽ thay đổi thành thời điểm hiện tại*@
+        <input asp-for="@Model.Book.ModifiedDate" type="hidden" value="@DateTime.Now" class="form-control" />
+        <div class="row form-group mb-2">
+            <div class="col-sm-2 col-form-label">
+                <label asp-for="@Model.Book.Title"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Book.Title" class="form-control" />
+            </div>
+        </div>
+        <br />
+
+        <div class="row form-group mb-2">
+            <div class="col-sm-2 col-form-label">
+                <label asp-for="@Model.Book.Image"></label>
+            </div>
+            <div class="col-8 ">
+                <input asp-for="Book.Image" class="form-control" />
+            </div>
+        </div>
+        <br />
+
+        <div class="row form-group mb-2">
+            <div class="col-sm-2 col-form-label">
+                <label asp-for="@Model.Book.Price"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Book.Price" class="form-control" />
+            </div>
+        </div>
+        <br />
+
+        <div class="row form-group mb-2">
+            <div class="col-sm-2 col-form-label">
+                <label asp-for="@Model.Book.Description"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Book.Description" class="form-control" />
+            </div>
+        </div>
+        <br />
+
+        <div class="row form-group align-items-center">
+            <div class="col-sm-2 col-form-label">
+                <label>Category: </label>
+            </div>
+
+            <div class="col-8">
+                <select name="cat">
+                    @foreach (var o in Model.CategoryOptions)
+                    {
+                        <option value="@Convert.ToInt32(o.Value)">@o.Text</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <br /><br />
+
+        <div class="container mb-4 clearfix">
+            <div class="float-end">
+                <a href="/detail/?id=@Model.Book.Id" class="btn btn-outline-secondary">Back</a>
+                <button type="submit" class="btn btn-outline-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+

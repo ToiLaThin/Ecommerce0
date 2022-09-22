@@ -1,0 +1,46 @@
+﻿@page
+@model Ecommerce0.Pages.Shop.InvoiceReviewModel
+@{
+    float TotalCartItemPrice(int quan, float price)
+    {
+        return quan * price;
+    }
+}
+<h2 class="font-monospace font-weight-bold m-0 p-0">Your invoice: </h2>
+
+<div class="container  card shadow font-monospace my-4 p-4">
+    @{
+        float finalPrice = 0;
+        foreach (var cartItem in Model.CartItems)
+        {
+            float cartItemPrice = TotalCartItemPrice(cartItem.Quantity, cartItem.Product.Price);
+            <div class="row p-0 m-0">
+                <div class="d-flex">
+                    <p class="col-6">Product: @(cartItem.Product.Title) <small>category:@(cartItem.Product.Category.Name)</small></p>
+                    <p class="col-4">Price per unit: @cartItem.Product.Price</p>
+                </div>
+                <div class="d-flex">
+                    <p class="col-6">Quantity: @(cartItem.Quantity)</p>
+                    <p class="col-4">Total: @cartItemPrice $</p>
+                </div>
+                <hr />
+            </div>
+            <br>
+            finalPrice += cartItemPrice;
+        }
+        <h2 class="font-weight-bold m-0 p-0" style="font-family: Courier New, Courier, monospace;">
+            Total:
+            <b class="text-danger">@finalPrice$</b>
+        </h2>
+        <small class="font-monospace text-sm-left">Date: @DateTime.UtcNow</small>
+    }
+</div>
+
+<div class="clearfix mb-5">
+    <div class="float-end">
+        <a href="/shop/cart" class="btn btn-outline-secondary">Wait !!!</a>
+        <a asp-page="/shop/invoiceConfirmed" asp-page-handler="confirmed" class="btn btn-outline-danger"><i class="fas fa-check"></i>Confirmed</a>
+    </div>
+</div>
+
+

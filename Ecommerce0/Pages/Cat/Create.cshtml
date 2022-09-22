@@ -1,0 +1,36 @@
+﻿@page 
+@model Ecommerce0.Pages.Cat.CreateModel
+@{
+}
+
+
+<h1>Create your new category:</h1>
+<br />
+<div class="container-fluid row border p-2 mb-5">
+    <form method="post">
+        <div class="form-group row p-2">
+            <div class="col-4">
+                <label asp-for="@Model.Category.Name" class=""></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="@Model.Category.Name" class="form-control" />
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group row p-2">
+            <div class="col-4">
+                <label asp-for="@Model.Category.Description" class=""></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="@Model.Category.Description" class="form-control" />
+            </div>
+        </div>
+        <br>
+
+        <a href="/me/index" class="btn btn-outline-secondary btn-sm rounded">Back</a>
+        <input type="submit" class="btn btn-sm btn-outline-info float-end" value="Submit" />
+    </form>
+</div>
+
+<br />

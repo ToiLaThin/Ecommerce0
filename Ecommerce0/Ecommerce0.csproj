@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20220908161312_UpdateBookModel0.cs" />
+    <Compile Remove="Migrations\20220908161312_UpdateBookModel0.Designer.cs" />
+    <Compile Remove="Migrations\20220920110524_AddInvoiceDetailsToDbAndChangeInvoiceSchema.cs" />
+    <Compile Remove="Migrations\20220920110524_AddInvoiceDetailsToDbAndChangeInvoiceSchema.Designer.cs" />
+    <Compile Remove="Migrations\20220921144303_AddDateModifiedToBook.cs" />
+    <Compile Remove="Migrations\20220921144303_AddDateModifiedToBook.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.28" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.28" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.28" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.28" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.28">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

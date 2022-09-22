@@ -1,0 +1,13 @@
+﻿@page "/delete/"
+@model Ecommerce0.Pages.Me.DeleteModel
+@{
+}
+
+<div class="container-fluid row">
+    <form method="post" class="border p-3 mb-2 rounded">
+        <h2>Are your sure you want to delete this book ?</h2>
+        <input type="hidden" asp-for="Book.Id" class="form-control"/>
+        <input type="submit" class="btn btn-outline-danger" value="Confirm delete"/>
+        <a href="/detail/?id=@Model.Book.Id" class="btn btn-outline-secondary">Back</a>
+    </form>
+</div>

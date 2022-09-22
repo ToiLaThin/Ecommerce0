@@ -1,0 +1,49 @@
+﻿@page
+@model Ecommerce0.Pages.RegisterModel
+@{
+}
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm-12 col-md-12 col-lg-4 border rounded p-5 shadow">
+            <h1 class="mb-3 text-center">REGISTER</h1>
+            <form method="post">
+                <div asp-validation-summary="All" class="text-danger lead"></div>
+                <div class="mb-3">
+                    <label asp-for="@Model.RegisterInfo.UserName" class="form-label">Username:</label>
+                    <input asp-for="@Model.RegisterInfo.UserName" class="form-control border-primary" />
+                    <span asp-validation-for="@Model.RegisterInfo.UserName" class="text-danger lead"></span>
+                </div>
+                <br />
+
+                <div class="mb-3">
+                    <label asp-for="@Model.RegisterInfo.Email" class="form-label">Email Address:</label>
+                    <input type="email" asp-for="@Model.RegisterInfo.Email" class="form-control border-secondary" />
+                    <span asp-validation-for="@Model.RegisterInfo.Email" class="text-danger lead"></span>
+                </div>
+                <br />
+
+                <div class="mb-3">
+                    <label asp-for="@Model.RegisterInfo.Password" class="form-label">Password:</label>
+                    <input type="password" asp-for="@Model.RegisterInfo.Password" class="form-control border-warning" />
+                    <span asp-validation-for="@Model.RegisterInfo.Password" class="text-danger lead"></span>
+                </div>
+                <br />
+
+                <div class="mb-3">
+                    <label asp-for="@Model.RegisterInfo.ConfirmedPassword" class="form-label">Confirmed Password:</label>
+                    <input type="password" asp-for="@Model.RegisterInfo.ConfirmedPassword" class="form-control border-danger" />
+                    <span asp-validation-for="@Model.RegisterInfo.ConfirmedPassword" class="text-danger lead"></span>
+                </div>
+                <br />
+
+                <div class="clearfix">
+                    <div class="float-end">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Submit</button>
+                        <button type="reset" class="btn btn-sm btn-outline-primary">Reset</button>
+                    </div>
+
+            </form>
+        </div>
+    </div>
+</div>

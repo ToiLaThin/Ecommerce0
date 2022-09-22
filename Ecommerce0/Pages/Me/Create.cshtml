@@ -1,0 +1,74 @@
+﻿@page
+@model Ecommerce0.Pages.Me.CreateModel
+@using Ecommerce0.Modals;
+@{
+}
+
+<h2>Create your book below: </h2>
+<br />
+<div class="container-fluid row border p-2 mb-5">
+    <form method="post">
+        <input asp-for="@Model.Book.ModifiedDate" type="hidden" value="@DateTime.Now" class="form-control" />
+        <div class="form-group row p-2">
+            <div class="col-4">
+                <label asp-for="@Model.Book.Title" class=""></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="@Model.Book.Title" class="form-control" />
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group row p-2">
+            <div class="col-4">
+                <label asp-for="@Model.Book.Price" class=""></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="@Model.Book.Price" class="form-control" />
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group row p-2">
+            <div class="col-4">
+                <label asp-for="@Model.Book.Image" class=""></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="@Model.Book.Image" class="form-control" />
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group row p-2">
+            <div class="col-4">
+                <label asp-for="@Model.Book.Description">Description:</label>
+            </div>
+
+            <div class="col-8">
+                <input asp-for="@Model.Book.Description" class="form-control" />
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group row p-2">
+            <div class="col-4">
+                <label asp-for="@Model.Book.Category">Category Name:</label>
+            </div>
+            <div class="col-8">
+                @*Có nghĩa thuộc tính public Cat được bind thì giá trị được chọn sẽ được gửi về và gán cho Cat*@
+                <select name="cat">
+                    @foreach (var o in Model.Options)
+                    {
+                        <option value="@Convert.ToInt32(o.Value)">@o.Text</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="container-fluid mb-4">
+
+            <button type="submit" class="btn btn-sm btn-outline-primary float-end">Submit</button>
+            <a href="/me" class="btn btn-sm btn-outline-secondary float-end ">Back</a>
+        </div>
+    </form>
+</div>

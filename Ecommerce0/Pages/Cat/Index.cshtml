@@ -1,0 +1,53 @@
+﻿@page
+@model Ecommerce0.Pages.Cat.IndexModel
+@{
+}
+
+<div class="container-fluid row">
+        <div class="col-8">
+            <h2>Category list: </h2>
+        </div>
+        
+        @if(User.Identity.IsAuthenticated)
+        {
+        <div class="col-2">
+            <button class="btn-outline-primary rounded btn-sm">
+                <a href="/cat/create" class="text-decoration-none">New category</a>
+            </button>
+        </div>
+        }
+</div>
+
+<br />
+<div class="container-fluid row accordion mb-5" id="accordionExample">
+    @{ 
+        int i = 0;
+        @foreach (var cat in @Model.Categories)
+        {
+            i++;
+            string headingId = "heading" + i.ToString();
+            string collapseId = "collapse" + i.ToString();
+            string headingIdFormat = "#" + headingId;
+            string collapseIdFormat = "#" + collapseId;
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id=@headingId>
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target=@collapseIdFormat aria-expanded="true" aria-controls=@collapseId>
+                        <a class="h2 lead text-decoration-none text-dark">@cat.Name</a>
+                    </button>
+                </h2>
+                <div id=@collapseId class="accordion-collapse collapse show" aria-labelledby=@headingId data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <strong>@cat.Description</strong>
+                        <div class="container clearfix">
+                            <a href="/cat/listbycate/?cateId=@cat.Id" class="float-end">View more</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    } 
+</div>
+<br />
+<br />

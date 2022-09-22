@@ -1,0 +1,42 @@
+﻿@page
+@model Ecommerce0.Pages.Auth.LoginModel
+@{
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm-12 col-md-12 col-lg-4 shadow rounded border p-5">
+            <h1 class="mb-3">Login</h1>
+            <form method="post">
+                <div asp-validation-summary="All" class="text-danger lead"></div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="@Model.LoginInfo.UserName">Username:</label>
+                    <input type="text" asp-for="@Model.LoginInfo.UserName" class="form-control" />
+                    <span asp-validation-for="@Model.LoginInfo.UserName" class="text-danger lead"></span>
+                </div>
+                <br />
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="@Model.LoginInfo.Password">Password</label>
+                    <input type="password" asp-for="@Model.LoginInfo.Password" class="form-control" />
+                    <span asp-validation-for="@Model.LoginInfo.Password" class="text-danger lead"></span>
+                </div>
+                <br />
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" asp-for="@Model.LoginInfo.RememberMe" class="form-check-input" />
+                    <label class="form-check-label" asp-for="@Model.LoginInfo.RememberMe">Remember Me</label>
+                </div>
+                <br />
+
+                <div class="clearfix mb-3">
+                    <div class="float-right">
+                        <button type="submit" class="btn btn-outline-success">Submit</button>
+                        <button type="reset" class="btn btn-outline-primary">Reset</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

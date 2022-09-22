@@ -1,0 +1,144 @@
+﻿@page
+@model Ecommerce0.Pages.Me.IndexModel
+@{
+}
+@*Có 2 cách style: 1 là thêm vô site.css trong wwwroot 2 là thêm code css vô section CSS(dùng link hoặc style): Dùng cách 2 vì cách 1 file đã quá nhiều*@
+@section CSS {
+    <link href="~/css/my.css" rel="stylesheet" />
+}
+<div class="row clearfix">
+    <div class="leftcolumn ">
+        <h1>Book List:</h1>
+        <hr />
+        <br>
+        <br>
+        <br>
+
+        <div id="dynamic" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            @foreach (var book in Model.Books)
+            {
+                <div class="col mb-5">
+                    <div class="card h-100 shadow rounded">
+                        <!-- Product image-->
+
+                        <img class="card-img-top" src=@book.Image alt="..." style="height: 200px;width:auto;" />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <a href="/detail/?id=@book.Id" style="text-decoration:none; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><h5 class="fw-bolder">@book.Title</h5></a>
+                                @if (book.Category != null)
+                                {
+                                    <div class="container">
+                                        <span class="h6 font-weight-bold">Cate: </span>
+                                        <a href="/cat/listbycate/?cateId=@book.Category.Id" class="text-decoration-none btn btn-sm btn-outline-warning">@book.Category.Name</a>
+                                    </div>
+
+                                }
+                                <!-- Product price-->
+                                <span class="text-success">$@book.Price</span>
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="col-12 justify-content-center align-items-center text-center">
+                                <a asp-page="/shop/cart" asp-page-handler="BuyNow" asp-route-id="@book.Id" class="btn btn-outline-primary">
+                                    Add To <i class="fas fa-cart-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @*Pagination*@
+        <div class="myPagination">
+            @{
+                int pageSize = 3;
+                int pageCount = Model.Books.Count / pageSize;
+                @*<a class="myPage">First</a>
+                <a class="myPage">&#60;</a>*@
+                for (int i = 1; i <= pageCount; i++)
+                {
+                    <a class="myPage">@(i)</a>
+                }
+                @*<a class="myPage">&#62;</a>
+                <a class="myPage">Last</a>*@
+            }
+        </div>
+    </div>
+    <div class="rightcolumn">
+        <div class="card myCard">
+            <div class="card-header bg-danger text-white font-monospace myCardHeader">Top 10 Newest Products</div>
+            <div class="myCardBody">
+                @foreach(var newBook in Model.Top10NewestBooks)
+                {
+                    <a class="myNewBook" href="/detail/?id=@newBook.Id">
+                        <img src="@newBook.Image" alt="Alternate Text" style=""/>
+                        <div class="myContentContainer">
+                            <p class="myBookTitle">@newBook.Title</p>
+                            @{
+                                var x = DateTime.Now - newBook.ModifiedDate;
+                                if (x < new TimeSpan(1, 0, 0, 0))
+                                {
+                                    <img class="myNewLabel" src="https://vnsea.com.vn/wp-content/uploads/2017/12/new.png"/>
+                                }
+                            }
+
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @*AJAX Request*@
+<script>
+        let dynamicElement = document.getElementById("dynamic");
+        var pages = document.getElementsByClassName("myPage");
+        for (let j = 0; j < pages.length; j++) {
+            pages[j].addEventListener('click', function () {
+                let xhttp = new XMLHttpRequest();
+                xhttp.open("get", "/me/index/?pSize=@pageSize&pNum=" + pages[j].innerHTML + "&handler=Pagination");
+
+                xhttp.onload = function () {
+                    let data = JSON.parse(xhttp.responseText);
+                    renderHTML(data);
+                };
+
+                xhttp.send();
+            });
+        }
+
+    //đây là cách duy nhất để hiển thị dữ liệu lên trang = AJAX  +
+    //DOM JSOM vì ko thể đưa code razor c# vào trong javascript
+    function renderHTML(data) {
+        let htmlString = "";
+        for (var i = 0; i < data.length; i++) {
+            let book = data[i];
+            htmlString += '<div class="col mb-5"><div class="card h-100 shadow rounded"><img class="card-img-top" src="'
+                + book.image + '"style="height: 200px;width:auto;"/>';
+            htmlString += '<div class="card-body p-4"><div class="text-center"><a href="/detail/?id=' + book.id + 'style="text-decoration:none; font-family:"Franklin Gothic Medium"><h5 class="fw-bolder">'
+                + book.title + '</h5 ></a >';
+
+            if (book.category != null) {
+                htmlString += '<div class="container"><span class="h6 font-weight-bold">Cate: </span>';
+                htmlString += '<a href="/cat/listbycate/?cateId="' +
+                    book.category.id + '" class="text-decoration-none btn btn-sm btn-outline-warning">' + book.category.name + '</a></div>';
+            }
+
+            htmlString += '<span class="text-success">$' + book.price + '</span></div></div >';
+            htmlString += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent"><div class="col-12 justify-content-center align-items-center text-center">';
+            htmlString += '<a asp-page="/shop/cart" asp-page-handler="BuyNow" asp-route-id="' + book.id + '" class="btn btn-outline-primary">Add To <i class="fas fa-cart-plus"></i></a>';
+            htmlString += '</div></div ></div ></div >';
+        }
+
+        dynamicElement.innerHTML = htmlString;
+    }
+</script>
+    
+}

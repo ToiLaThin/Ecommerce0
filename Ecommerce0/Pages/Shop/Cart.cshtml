@@ -1,0 +1,74 @@
+﻿@page
+@using Ecommerce0.Modals;
+@model Ecommerce0.Pages.Shop.CartModel
+@{
+}
+
+<h2>Your Cart:</h2>
+<br />
+<div class="mb-5">
+    <table class="table table-bordered shadow">
+        <tr>
+            <th>Photo</th>
+            <th>Product</th>
+            <th>Actions</th>
+            <th>Quantity</th>
+            <th>Price per Unit</th>
+            <th>Total price</th>
+        </tr>
+        @foreach (var cartItem in Model.Cart)
+        {
+            Book b = (Book)cartItem.Product;
+            string photoUrl = cartItem.Product.Image;
+            <tr>
+                <td><img src="@photoUrl" width="60" /></td>
+                <td>
+                    <b>@b.Title</b>
+                    <br />
+                    @{
+                        if (b.Category != null)
+                        {
+                            if (b.Category.Name != null)
+                            {
+                                <span class="text-secondary font-italic">Category: @b.Category.Name, Material: paper</span>
+                            }
+
+                        }
+                        else
+                        {
+                            <span class="text-secondary font-italic">Category: Unknown, Material: paper</span>
+                        }
+                    }
+                </td>
+                <td>
+                    <div class="container d-flex align-items-center justify-content-center">
+                        <a asp-page="/shop/cart" asp-page-handler="AddCartItem" asp-route-id="@b.Id" class="btn btn-sm btn-outline-success px-3 py-1 m-1"><b>+</b></a>
+                        <a asp-page="/shop/cart" asp-page-handler="SubtractCartItem" asp-route-id="@b.Id" class="btn btn-sm btn-outline-danger px-3 py-1 m-1"><b>-</b></a>
+                        <a asp-page="/shop/cart" asp-page-handler="Remove" asp-route-id="@b.Id" class="btn btn-sm btn-danger px-3  py-1 m-1 text-black"><b>X</b></a>
+                    </div>
+                </td>
+                <td>@cartItem.Quantity</td>
+                <td class="text-center"><span class="text-success">@b.Price$</span></td>
+                <td class="text-center"><span class="text-success">@(b.Price * cartItem.Quantity)$</span></td>
+            </tr>
+        }
+    </table>
+
+    <div class="clearfix">
+        <div class="float-end">
+            <h2 class="font-weight-bold" style="font-family: Courier New, Courier, monospace;">Total:
+                <b class="text-danger">@Model.TotalPrice$</b>
+            </h2>
+        </div>
+    </div>
+
+    <div class="clearfix">
+        <div class="float-end">
+            <a href="/me/index" class="btn btn-outline-secondary">Continue Shopping</a>
+            @if (Model.Cart.Count > 0) {
+                <a asp-page="/shop/InvoiceReview" class="btn btn-outline-success font-weight-bolder font-monospace"><i class="fas fa-dollar-sign m-1"></i>Checkout</a>
+            }
+        </div>
+    </div>
+</div>
+

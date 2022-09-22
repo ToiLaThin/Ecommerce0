@@ -1,0 +1,73 @@
+﻿@page
+@model Ecommerce0.Pages.Cat.ListByCateModel
+@{
+}
+
+@if (Model.BooksOfCate.Count() > 0)
+{
+    <h1>Book of category: @Model.BooksOfCate.FirstOrDefault().Category.Name.ToLower()</h1>
+
+}
+else
+{
+    <h1>Book of category: @Model.Category.Name.ToLower()</h1>
+}
+<hr />
+<br>
+<br>
+<br>
+
+<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    @if (Model.BooksOfCate.Count() > 0)
+    {
+        @foreach (var book in Model.BooksOfCate)
+        {
+            <div class="col mb-5">
+                <div class="card h-100 shadow rounded">
+                    <!-- Product image-->
+
+                    <img class="card-img-top" src=@book.Image alt="..." style="height: 200px;width:auto;" />
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <a href="/detail/?id=@book.Id" style="text-decoration:none; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"><h5 class="fw-bolder">@book.Title</h5></a>
+                            <div class="container">
+                                <span class="h6 font-weight-bold">Cate: @book.Category.Name</span>
+                            </div>
+                            <!-- Product price-->
+                            <span class="text-success">$@book.Price</span>
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="col-12 justify-content-center align-items-center text-center">
+                            <a asp-page="/shop/cart" asp-page-handler="BuyNow" asp-route-id="@book.Id" class="btn btn-outline-primary">
+                                Add To <i class="fas fa-cart-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="card">
+            <div class="card-header">
+                Message:
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Please read this</h5>
+                <p class="card-text">Sorry. We don't have any book of that cate in store.</p>
+                <a href="#" class="btn btn-outline-danger">Go somewhere</a>
+            </div>
+        </div>  
+    }
+</div>
+
+<div class="container mb-4 clearfix">
+    <div class="float-end">
+        <a href="/me/index" class="btn btn-secondary btn-sm">Back</a>
+    </div>
+</div>
