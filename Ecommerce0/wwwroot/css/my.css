@@ -100,7 +100,7 @@
     align-items: center;
     font-size: 18px;
 }
-
+ 
 .myPage {
     display: block;
     text-decoration: none;
@@ -112,7 +112,7 @@
 }
 
 .myPage:hover {
-    background-color: dodgerblue;
-    color: white;
+        background-color: dodgerblue;
+        color: white;
 }
 
