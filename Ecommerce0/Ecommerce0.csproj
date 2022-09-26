@@ -11,6 +11,10 @@
     <Compile Remove="Migrations\20220920110524_AddInvoiceDetailsToDbAndChangeInvoiceSchema.Designer.cs" />
     <Compile Remove="Migrations\20220921144303_AddDateModifiedToBook.cs" />
     <Compile Remove="Migrations\20220921144303_AddDateModifiedToBook.Designer.cs" />
+    <Compile Remove="Migrations\20220925153212_AddTagAndSubCategory.cs" />
+    <Compile Remove="Migrations\20220925153212_AddTagAndSubCategory.Designer.cs" />
+    <Compile Remove="Migrations\20220925154653_AddTagAndSubCategory.cs" />
+    <Compile Remove="Migrations\20220925154653_AddTagAndSubCategory.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

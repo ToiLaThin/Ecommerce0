@@ -1,0 +1,108 @@
+﻿@page
+@model Ecommerce0.Pages.Me.AssignTagModel
+@{
+}
+@section CSS {
+    <link href="~/css/my.css" rel="stylesheet" />
+}
+<h2>Assign Tag to this product @Model.Book.Title with category: @Model.Book.Category.Name</h2>
+
+@*Load cac tag ung voi cate nay duoi dang checkbox roi luwu trong form*@ 
+<form method="post">
+    <input type="hidden" asp-for="@Model.Book.Id" />
+    <div class="border rounded my-5">
+        @foreach (var tc in Model.TagCategories)
+        {
+            <div class="row form-group align-items-center p-0 m-0">
+                <div class="col-12 form-check">
+                    <label class="form-check-label">@tc.Tag.TagName</label>
+                    @if (Model.ProductHadTag(tc.IdTag))
+                    {
+                        <input type="checkbox" name="CheckedTagsId" value="@tc.Tag.Id" checked/>
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="CheckedTagsId" value="@tc.Tag.Id"/>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+    <button type="submit">Confirmed</button>
+</form>
+
+<div class="container" id="tagPillContainer">
+    Tags:
+</div>
+
+@section Scripts {
+    @*Sử dụng jQuery để mỗi lần check thì sẽ thêm 1 pill có tên là TagName*@
+    <script>
+        refreshCSS = () => {
+            let links = document.getElementsByTagName('link');
+            for (let i = 0; i < links.length; i++) {
+                if (links[i].getAttribute('rel') == 'stylesheet') {
+                    let href = links[i].getAttribute('href')
+                        .split('?')[0];
+
+                    let newHref = href + '?version='
+                        + new Date().getMilliseconds();
+
+                    links[i].setAttribute('href', newHref);
+                }
+            }
+        }
+
+        renderTagPill = (checkbox) => {
+            var tagId = checkbox.value;
+            console.log(tagId);
+            if (checkbox.checked) {
+                var pill = $("<button id='p" + tagId + "'></button > ")
+                pill.addClass('pill');
+                refreshCSS();
+
+                //jQuery AJAX API
+                pill.load('?handler=TagName&tagId=' + tagId, function (responseTxt, statusTxt, xhr) {
+                    if (statusTxt == "success") {
+                        alert("Gửi AJAX và nhận dữ liệu từ handler thành công");
+                        pill.text(responseTxt);
+                    }
+                    else if (statusTxt == "error")
+                        alert("Lỗi: " + xhr.status + ": " + xhr.statusText);
+                })
+                $("#tagPillContainer").append(pill);
+            }
+            else {
+                var uncheckedPill = document.getElementById('p' + tagId);
+                uncheckedPill.remove();
+            }
+        }
+
+        //Danh cho cac tag da check roi
+        renderTagPillChecked = (checkbox) => {
+            var tagId = checkbox.value;
+            console.log(tagId);
+            if (checkbox.checked) {
+                var pill = $("<button id='p" + tagId + "'></button > ")
+                pill.addClass('pill');
+                refreshCSS();
+
+                //jQuery AJAX API
+                pill.load('?handler=TagName&tagId=' + tagId, function (responseTxt, statusTxt, xhr) {
+                    pill.text(responseTxt);}
+                });
+                $("#tagPillContainer").append(pill);
+            }           
+        }
+        
+        $(document).ready(function () {
+            $("input[checked]").show(function () {
+                renderTagPillChecked(this);
+            });
+
+            $("input[type='checkbox']").change(function () {
+                renderTagPill(this);
+            });
+        });
+    </script>
+}

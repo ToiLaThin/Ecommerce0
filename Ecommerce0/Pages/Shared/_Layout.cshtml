@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="~/css/site.css" />
     @*Dynamic CSS inside style tage section*@
     @RenderSection("CSS", required: false)
+
+    @*Jquery*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
     <!-- Navigation-->
@@ -33,6 +36,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown0">
                                 <li><a class="dropdown-item" href="/me/create">New Book</a></li>
                                 <li><a class="dropdown-item" href="/cat/create">New Category</a></li>
+                                <li><a class="dropdown-item" href="/taggy/createTag">New Tag</a></li>
                             </ul>
                         </li>
                     }

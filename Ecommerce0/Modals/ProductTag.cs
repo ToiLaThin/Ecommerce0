@@ -7,13 +7,16 @@ using System.Threading.Tasks;
 
 namespace Ecommerce0.Modals
 {
-    public class Category
+    public class ProductTag
     {
         [Key]
         public int Id { get; set; }
+        public int IdTag { get; set; }
+        [ForeignKey("IdTag")]
+        public Tag Tag { get; set; }
 
-        public string Name { get; set; }
-
-        public string Description { get; set; }
+        public int IdProduct { get; set; }
+        [ForeignKey("IdProduct")]
+        public Book Product{ get; set; }
     }
 }

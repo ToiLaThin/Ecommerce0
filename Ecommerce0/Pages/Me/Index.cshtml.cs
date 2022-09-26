@@ -27,7 +27,7 @@ namespace Ecommerce0.Pages.Me
         }
 
         //là url được xmlhttprequest trỏ tới nó nhận tham số và trả về các book dưới dạng json
-        public IActionResult OnGetPagination(int pSize,int pNum)
+        public JsonResult OnGetPagination(int pSize,int pNum)
         {
             int skip = (pNum - 1) * pSize;
             int take = pSize;

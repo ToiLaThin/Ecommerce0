@@ -98,22 +98,44 @@
 @section Scripts {
     @*AJAX Request*@
 <script>
+        refreshCSS = () => {
+            let links = document.getElementsByTagName('link');
+            for (let i = 0; i < links.length; i++) {
+                if (links[i].getAttribute('rel') == 'stylesheet') {
+                    let href = links[i].getAttribute('href')
+                        .split('?')[0];
+
+                    let newHref = href + '?version='
+                        + new Date().getMilliseconds();
+
+                    links[i].setAttribute('href', newHref);
+                }
+            }
+        }
+
         let currPage = -1;
         let dynamicElement = document.getElementById("dynamic");
         var pages = document.getElementsByClassName("myPage");
         for (let j = 0; j < pages.length; j++) {
             pages[j].addEventListener('click', function () {
+                //refresh all page from .active class
+                for (let x = 0; x < pages.length; x++) {
+                    pages[x].classList.remove("active");
+                }
 
                 let xhttp = new XMLHttpRequest();
-                if (pages[j].id == "FirstPage") { currPage = 1; }
-                else if (pages[j].id == "LastPage") { currPage = @pageCount; }
-                else if (pages[j].id == "PrevPage" && currPage > 1) { currPage = currPage - 1; }
-                else if (pages[j].id == "PrevPage" && currPage == 1) { currPage = currPage; }
-                else if (pages[j].id == "NextPage" && currPage < @pageCount) { currPage = currPage + 1; }
-                else if (pages[j].id == "NextPage" && currPage == @pageCount) { currPage = currPage; }
-                else {
-                    currPage = parseInt(pages[j].innerHTML);
+                if (pages[j].id == "FirstPage") { currPage = 1; pages[2].classList.add("active"); }
+                else if (pages[j].id == "LastPage") { currPage = @pageCount; pages[pages.length - 3].classList.add("active"); }
+                else if (pages[j].id == "PrevPage" && currPage > 1) { currPage = currPage - 1; pages[currPage + 1].classList.add("active"); }
+                else if (pages[j].id == "PrevPage" && currPage == 1) { currPage = currPage; pages[2].classList.add("active"); }
+                else if (pages[j].id == "NextPage" && currPage < @pageCount && currPage >= 1) { currPage = currPage + 1; pages[currPage + 1].classList.add("active"); }
+                else if (pages[j].id == "NextPage" && currPage == @pageCount) { currPage = currPage; pages[pages.length - 3].classList.add("active"); }
+                else if (pages[j].id == "") {
+                    currPage = parseInt(pages[j].innerHTML);                    
+                    pages[j].classList.add("active");
                 }
+                refreshCSS();
+                console.log(currPage);
 
 
                 xhttp.open("get", "/me/index/?pSize=@pageSize&pNum=" + currPage + "&handler=Pagination");

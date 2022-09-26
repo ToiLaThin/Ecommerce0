@@ -111,8 +111,26 @@
     transition: 0.9s ease;
 }
 
-.myPage:hover {
-        background-color: dodgerblue;
-        color: white;
+.myPage:not(.active):hover {
+    background-color: dodgerblue;
+    color: white;
+}
+
+.myPage.active {
+    background-color: tomato;
+    border-radius: 50%;
+    color: whitesmoke;
+}
+
+.pill {
+    background-color: #dc2e2e;
+    color: whitesmoke;
+    font: bold 14px 'Segoe UI light',sans-serif;
+    border: none;
+    padding: 10px 20px;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 25px;
 }
 
