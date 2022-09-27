@@ -6,8 +6,23 @@
 @section CSS {
     <link href="~/css/my.css" rel="stylesheet" />
 }
-<div class="row clearfix">
-    <div class="leftcolumn ">
+<div class="row">
+    <div class="col-2" style="margin-top:60px;">
+        @*file my.css khong load do bootstrap dc
+        khi lam 3 col layout nen phai dung thuoc tinh bootstrap*@
+        <h4>Categories</h4>
+        @*Tag helper này giúp tạo id là SelectedCategoryId và load các option có value 
+        la Categories(là List<SelectListItem>)*@
+        <select asp-for="@Model.SelectedCategoryId" asp-items="Model.Categories" >
+            <option value="" disabled selected hidden>Select Category</option>
+        </select>
+        <br />
+        <br />
+        <h4>Tags of this category:</h4>
+        <div id="tagsOfCate">
+        </div>
+    </div>
+    <div class="col-7">
         <h1>Book List:</h1>
         <hr />
         <br>
@@ -68,7 +83,7 @@
             }
         </div>
     </div>
-    <div class="rightcolumn">
+    <div class="col-3">
         <div class="card myCard">
             <div class="card-header bg-danger text-white font-monospace myCardHeader">Top 10 Newest Products</div>
             <div class="myCardBody">
@@ -131,7 +146,7 @@
                 else if (pages[j].id == "NextPage" && currPage < @pageCount && currPage >= 1) { currPage = currPage + 1; pages[currPage + 1].classList.add("active"); }
                 else if (pages[j].id == "NextPage" && currPage == @pageCount) { currPage = currPage; pages[pages.length - 3].classList.add("active"); }
                 else if (pages[j].id == "") {
-                    currPage = parseInt(pages[j].innerHTML);                    
+                    currPage = parseInt(pages[j].innerHTML);
                     pages[j].classList.add("active");
                 }
                 refreshCSS();
@@ -142,7 +157,7 @@
 
                 xhttp.onload = function () {
                     let data = JSON.parse(xhttp.responseText);
-                    renderHTML(data);
+                    renderHTMLProducts(data);
                 };
 
                 xhttp.send();
@@ -151,7 +166,7 @@
 
     //đây là cách duy nhất để hiển thị dữ liệu lên trang = AJAX  +
     //DOM JSOM vì ko thể đưa code razor c# vào trong javascript
-    function renderHTML(data) {
+    function renderHTMLProducts(data) {
         let htmlString = "";
         for (var i = 0; i < data.length; i++) {
             let book = data[i];
@@ -174,6 +189,81 @@
 
         dynamicElement.innerHTML = htmlString;
     }
+
+    function renderHTMLTags(data) {
+        let htmlString = "<form id='myTagsForm' method='post'>"
+        htmlString +="<div class='form-group border rounded mb-5'>";
+        for (var i = 0; i < data.length; i++) {
+            let tag = data[i];
+            htmlString += "<div class='form-check m-1'>";
+            htmlString += "<input type='checkbox' name='CheckedTagsId' class='mx-2' value='" + tag.id + "'>";
+            htmlString += "<label class='form-check-label'>" + tag.tagName + "</label>";
+            htmlString += "</div>"
+        }
+        htmlString += "</div>"
+        htmlString += "</form>"
+        $("#tagsOfCate").empty();
+        $("#tagsOfCate").append(htmlString)
+    }
+
+    requestBooksOfSelectedTags = (checkbox,categoryId) => {
+        //submit để lưu id các tag vào CheckedTagsId
+        let checkedTagsId = [];
+        if (checkbox.checked) {
+            //javascript và jquery dễ bị conflict
+            //element của javascript khoogn gội được phương thức của jquery
+            checkbox.classList.add("checked");
+        }
+        else {
+            checkbox.classList.remove("checked");
+        }
+
+        let checkboxes = document.querySelectorAll("input.checked");
+        //nếu có checkbox được check thì lọc theo tag và cate còn nếu không thì chỉ lọc theo cate
+        //viêt như thế này là đủ đề handler không bao giờ nhận tham số null
+        //thay vì phải hi sinh readability để có certainty
+        if (checkboxes.length > 0) {
+            checkboxes.forEach(function (node) {
+                //console.log(node.defaultValue);
+                checkedTagsId.push(parseInt(node.defaultValue));
+            });
+            checkedTagsIdStr = checkedTagsId.join(",");
+
+            $.get("?handler=BooksOfTagsAndCate&CategoryId=" + categoryId + "&checkedTagsIdStr=" + checkedTagsIdStr, function (responseTxt) {
+                console.log(responseTxt);
+                renderHTMLProducts(responseTxt);
+            });
+        }
+        else {
+            $.get("?handler=FilterByCate&CategoryId=" + categoryId, function (responseTxt) {
+                renderHTMLProducts(responseTxt);
+            });
+        }
+    }
+      
+    $("#SelectedCategoryId").on({
+        "change": function () {
+            var categoryId = $(this).val();
+            //Hiển thị các product theo category đã chọn
+            $.get("?handler=FilterByCate&CategoryId=" + categoryId, function (responseTxt) {
+                renderHTMLProducts(responseTxt);
+            });
+
+            //Hiển thị checkboxes của các tag có cate vừa chọn
+            $.get("?handler=TagsByCate&CategoryId=" + categoryId, function (responseTxt) {
+                renderHTMLTags(responseTxt);
+            });
+        },
+        "mouseleave": function () {
+            var categoryId = $(this).val();
+            //Nếu tích vào ô checkbox nào thì sẽ gọi AJAX để trả về các book thỏa có tag là các tag được tích và có cate là cate đã chọn
+            $("input").change(function () {
+                requestBooksOfSelectedTags(this, categoryId);
+            });
+
+        }
+    });
+
 </script>
     
 }

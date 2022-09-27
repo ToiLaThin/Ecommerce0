@@ -1,14 +1,22 @@
-﻿.leftcolumn {
+﻿.myLeftColumn {
     float: left;
-    width: 75%;
+    width: 15%;
+}
+.myMidColumn {
+    float: left;
+    width: 60%;
 }
 
-.rightcolumn {
-    float: right;
+.myRightColumn {
+    float: left;
     width: 25%;
 }
 
-
+.myClearFix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
 .myCard {
     margin-top: 60px;
     margin-left: 40px;
@@ -69,7 +77,7 @@
 
 
 @media screen and (max-width: 1200px) {
-    .leftcolumn, .rightcolumn {
+    .myLeftColumn, .myRightColumn, .myMidColumn {
         width: 100%;
         padding: 0;
     }
