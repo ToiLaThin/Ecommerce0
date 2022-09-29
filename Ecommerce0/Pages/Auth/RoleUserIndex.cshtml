@@ -1,0 +1,38 @@
+﻿@page
+@model Ecommerce0.Pages.Auth.RoleUserIndexModel
+@{
+}
+
+@{
+    ViewData["Title"] = "DANH SÁCH NGƯỜI DÙNG";
+}
+
+
+<h4>@ViewData["Title"]</h4>
+<table class="table table-striped">
+    <tr>
+        <th>UserName</th>
+        <th>Roles</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var user in @Model.Users)
+    {
+        <tr>
+            <td>@user.UserName</td>
+            <td>@user.Roles</td>
+            <td>
+                <form method="POST" class="d-inline">
+                    <button name="Input.ID" value="@user.Id" class="btn btn-primary btn-sm"
+                            asp-page="./RoleUserAssign">
+                        Cập nhật Role
+                    </button>
+                </form>
+            </td>
+        </tr>
+
+    }
+</table>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

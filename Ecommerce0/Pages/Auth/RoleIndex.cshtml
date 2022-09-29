@@ -1,0 +1,41 @@
+﻿@page
+@model Ecommerce0.Pages.Auth.RoleIndexModel
+@{
+}
+<h3>Danh sách các role</h3>
+
+    <form method="POST" class="my-1 d-inline">
+        <button class="btn btn-secondary" asp-page="RoleCreate" asp-page-handler="CreateRoleReady">
+            Thêm mới Role
+        </button>
+    </form>
+    <a class="btn btn-secondary" asp-page="RoleUserIndex">Gán role cho người dùng</a>
+
+    <table class="table">
+        <tr>
+            <th>Role ID</th>
+            <th>Tên</th>
+            <th>Tác vụ</th>
+        </tr>
+        @foreach (var role in @Model.roles)
+        {
+            <tr>
+                <td>@role.Id</td>
+                <td>@role.Name</td>
+                <td>
+                    <form method="POST" class="d-inline">
+                        <button name="Input.ID" value="@role.Id" class="btn btn-success btn-sm"
+                                asp-page="RoleUpdate" asp-page-handler="UpdateRoleReady">
+                            Cập nhật Role
+                        </button>
+                    </form>
+                    <form method="POST" class="d-inline">
+                        <button name="Input.ID" value="@role.Id" class="btn btn-success btn-sm"
+                                asp-page="./RoleDelete">
+                            Xóa Role
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
