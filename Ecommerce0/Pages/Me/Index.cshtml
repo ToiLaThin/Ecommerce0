@@ -7,7 +7,7 @@
     <link href="~/css/my.css" rel="stylesheet" />
 }
 <partial name="~/Pages/Shared/_IndexHeader.cshtml"/>
-<div class="row">
+<div class="row" id="shopping">
     <div class="col-2" style="margin-top:60px;">
         @*file my.css khong load do bootstrap dc
         khi lam 3 col layout nen phai dung thuoc tinh bootstrap*@
@@ -114,6 +114,9 @@
 @section Scripts {
     @*AJAX Request*@
 <script>
+        /*elemetn chua id btn-shopping nam o partialview _IndexHeader*/
+        document.getElementById("btn-shopping").href = "#shopping";
+
         refreshCSS = () => {
             let links = document.getElementsByTagName('link');
             for (let i = 0; i < links.length; i++) {

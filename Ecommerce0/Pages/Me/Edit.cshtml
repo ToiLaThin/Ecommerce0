@@ -46,7 +46,7 @@
                 <label asp-for="@Model.Book.Description"></label>
             </div>
             <div class="col-8">
-                <input asp-for="Book.Description" class="form-control" />
+                <textarea id="rich-text-editor" asp-for="@Model.Book.Description" class="form-control" />@Model.Book.Description</textarea>
             </div>
         </div>
         <br />
@@ -75,5 +75,17 @@
         </div>
     </form>
 </div>
+@section Scripts {
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
+    @*script to create rich text editor*@
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#rich-text-editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
+}
 
 
