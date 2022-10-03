@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Ecommerce0.Pages.Me
 {
-    [Authorize(Roles = "Admin")]
+    [AllowAnonymous]
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _db;

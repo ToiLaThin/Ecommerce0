@@ -15,18 +15,18 @@ namespace Ecommerce0.Pages.Shop
         {
         }
 
-        public IActionResult OnGetPayment()
+        public IActionResult OnGetPayment(Dictionary<String,String> parameters)
         {
             string endpoint = "https://payment.momo.vn/v2/gateway/api/create";
             string partnerCode = "MOMOI0LX20220922";
             string accessKey = "5DuZliGMfIjEIiQs";
             string serectkey = "JREEY5yK0azGS6YJZV5LQXB2wYR9SN8J";
-            string orderInfo = "BiOrderInfo";
+            string orderInfo = "YourOrderInfo";
             string redirectUrl = "https://localhost:44347/shop/InvoiceConfirmed";
             string ipnUrl = "https://localhost:44347/shop/InvoiceConfirmed";
             string requestType = "captureWallet";
 
-            string amount = "400000";
+            string amount = (int.Parse(parameters["payment"]) * 20000).ToString();
             string orderId = Guid.NewGuid().ToString();
             string requestId = Guid.NewGuid().ToString();
             string extraData = "";

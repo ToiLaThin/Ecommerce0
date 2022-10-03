@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Ecommerce0.Pages.Me
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
     {
         private readonly ApplicationDbContext _db;

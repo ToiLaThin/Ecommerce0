@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Ecommerce0.Pages.Auth
 {
+    [Authorize(Roles = "Admin")]
     public class RoleUpdateModel : PageModel
     {
         private readonly RoleManager<IdentityRole> _roleManager;

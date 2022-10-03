@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce0.Pages.Me
 {    
+    [Authorize(Roles ="Admin")]
     public class AssignTagModel : PageModel
     {
 

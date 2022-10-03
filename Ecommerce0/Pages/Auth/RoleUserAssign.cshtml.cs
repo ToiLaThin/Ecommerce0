@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce0.Pages.Auth
 {
+    [Authorize(Roles = "Admin")]
     public class RoleUserAssignModel : PageModel
     {
         private readonly RoleManager<IdentityRole> _roleManager;

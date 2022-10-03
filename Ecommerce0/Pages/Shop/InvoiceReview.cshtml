@@ -40,7 +40,13 @@
     <div class="float-end">
         <a href="/shop/cart" class="btn btn-outline-secondary">Wait !!!</a>
         <a asp-page="/shop/invoiceConfirmed" asp-page-handler="confirmed" class="btn btn-outline-danger"><i class="fas fa-check"></i>Confirmed</a>
-        <a asp-page="/shop/momo" asp-page-handler="payment" class="btn btn-outline-danger"><i class="fas fa-piggy-bank fs-4"></i>Momo Pay</a>
+        @{
+            var parameters = new Dictionary<String, String>
+            {
+                {"payment",finalPrice.ToString() }
+            };
+        }
+        <a asp-page="/shop/momo" asp-page-handler="payment" asp-all-route-data="parameters" class="btn btn-outline-danger"><i class="fas fa-piggy-bank fs-4"></i>Momo Pay</a>
     </div>
 </div>
 

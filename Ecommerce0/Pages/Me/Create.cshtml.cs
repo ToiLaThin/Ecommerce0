@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce0.Pages.Me
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _db;
