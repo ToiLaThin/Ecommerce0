@@ -7,8 +7,8 @@
     <link href="~/css/my.css" rel="stylesheet" />
 }
 <partial name="~/Pages/Shared/_IndexHeader.cshtml"/>
-<div class="row" id="shopping">
-    <div class="col-2" style="margin-top:60px;">
+<div class="row myClearFix" id="shopping">
+    <div class="col-2 myLeftColumn" style="margin-top:60px;">
         @*file my.css khong load do bootstrap dc
         khi lam 3 col layout nen phai dung thuoc tinh bootstrap*@
         <h4>Categories</h4>
@@ -23,7 +23,7 @@
         <div id="tagsOfCate">
         </div>
     </div>
-    <div class="col-7">
+    <div class="col-7 myMidColumn">
         <h1>Book List:</h1>
         <hr />
         <br>
@@ -84,7 +84,7 @@
             }
         </div>
     </div>
-    <div class="col-3">
+    <div class="col-3 myRightColumn">
         <div class="card myCard">
             <div class="card-header bg-danger text-white font-monospace myCardHeader">Top 10 Newest Products</div>
             <div class="myCardBody">
@@ -160,7 +160,7 @@
                 xhttp.open("get", "/me/index/?pSize=@pageSize&pNum=" + currPage + "&handler=Pagination");
 
                 xhttp.onload = function () {
-                    let data = JSON.parse(xhttp.responseText);
+                    let data = JSON.parse(xhttp.responseText);                
                     renderHTMLProducts(data);
                 };
 
@@ -176,7 +176,7 @@
             let book = data[i];
             htmlString += '<div class="col mb-5"><div class="card h-100 shadow rounded"><img class="card-img-top" src="'
                 + book.image + '"style="height: 200px;width:auto;"/>';
-            htmlString += '<div class="card-body p-4"><div class="text-center"><a href="/detail/?id=' + book.id + 'style="text-decoration:none; font-family:"Franklin Gothic Medium"><h5 class="fw-bolder">'
+            htmlString += '<div class="card-body p-4"><div class="text-center"><a href="/detail/?id=' + book.id + '" style="text-decoration:none; font-family:"Franklin Gothic Medium"><h5 class="fw-bolder">'
                 + book.title + '</h5 ></a >';
 
             if (book.category != null) {
@@ -187,8 +187,10 @@
 
             htmlString += '<span class="text-success">$' + book.price + '</span></div></div >';
             htmlString += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent"><div class="col-12 justify-content-center align-items-center text-center">';
-            htmlString += '<a asp-page="/shop/cart" asp-page-handler="BuyNow" asp-route-id="' + book.id + '" class="btn btn-outline-primary">Add To <i class="fas fa-cart-plus"></i></a>';
-            htmlString += '</div></div ></div ></div >';
+            //Nếu ở đây đưa các tag helper vào string rồi gán cho htmlString thì code sẽ không hoạt động vì ở đây là xử lý frontend nên các tag helper sẽ không được dịch thành html nên kho
+            //hoạt động được
+            htmlString += '<a href="/shop/cart?handler=BuyNow&id=' + book.id + '" class="btn btn-outline-primary">Add To <i class="fas fa-cart-plus"></i></a>';
+            htmlString += '</div></div></div></div>';
         }
 
         dynamicElement.innerHTML = htmlString;
@@ -234,12 +236,13 @@
             checkedTagsIdStr = checkedTagsId.join(",");
 
             $.get("?handler=BooksOfTagsAndCate&CategoryId=" + categoryId + "&checkedTagsIdStr=" + checkedTagsIdStr, function (responseTxt) {
-                console.log(responseTxt);
+                /*các responseTxt ở đây đều đã là ở dạng JSON object nên không cần dùng JSON.parse*/
                 renderHTMLProducts(responseTxt);
             });
         }
         else {
             $.get("?handler=FilterByCate&CategoryId=" + categoryId, function (responseTxt) {
+                /*các responseTxt ở đây đều đã là ở dạng JSON object nên không cần dùng JSON.parse*/
                 renderHTMLProducts(responseTxt);
             });
         }
