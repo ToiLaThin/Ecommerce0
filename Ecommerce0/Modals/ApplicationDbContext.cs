@@ -35,5 +35,7 @@ namespace Ecommerce0.Modals
 
         public DbSet<ProductTag> ProductTags { get; set; }
 
+        public DbSet<Review> Reviews { get; set; }
+
     }
 }

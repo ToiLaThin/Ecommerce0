@@ -234,8 +234,10 @@
 
         function createMap() {
             const location = getLocation();
+            console.log(location);
             const map = new google.maps.Map(document.getElementById("myGoogleMap"), {
                 center: location,
+                zoom: 2,
             });
             // The marker, positioned at Uluru
             const marker = new google.maps.Marker({
@@ -314,7 +316,7 @@
         });
     </script>
     @*api key copy from https://tranhieuit.com/share-google-maps-api-key/ 	AIzaSyDNI_ZWPqvdS6r6gPVO50I4TlYkfkZdXh8 	AIzaSyDWTx7bREpM5B6JKdbzOvMW-RRlhkukmVE  *@
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaOulQACiJzBfqumbsqg_-vKha8fCnL-s&callback=createMap&v=weekly"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNI_ZWPqvdS6r6gPVO50I4TlYkfkZdXh8&callback=createMap&v=weekly"
             defer></script>
 </body>
 

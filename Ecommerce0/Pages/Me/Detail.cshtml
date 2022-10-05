@@ -50,5 +50,88 @@
             }
         </div>
     </div>
-    
+
+    <section id="myReviewSection" class="card shadow p-5 my-4 mx-5">
+        <h2 class="p-2 bg-dark text-white mb-5">Reviews on Product:</h2>
+        <div id="myReviewCreate mb-5">
+            <form method="post">
+                <div class="row col-8 rounded p-3" style="background-color: #ededed">
+                    <div class="col-1 text-center lead">
+                        <img src="~/assets/img/default-profile.png" class="rounded-circle border-1 border-dark" alt="Alternate Text" width="75" height="75" />
+                        <small>@User.Identity.Name</small>
+                    </div>
+                    <div class="col-11">
+                        <input type="hidden" asp-for="@Model.CurrentUserId" />
+                        <input type="hidden" asp-for="@Model.Book.Id" />
+                        <textarea asp-for="@Model.CreatedReview.ReviewDetail" class="form-text form-control-plaintext border-1 border-dark rounded bg-white"
+                                  style="height:150px;" placeholder="Bạn đang nghĩ gì về sản phẩm này?">
+                        </textarea>
+                    </div>
+                </div>
+                <div class="clearfix col-8 px-3">
+                    <button type="submit" class="float-end btn btn-sm btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div id="myProductReviews" class="mx-5">
+            @foreach (var review in Model.TopFiveRecentReviewsOfThisProduct)
+            {
+                <hr class="mt-5">
+                <div class="row col-8 rounded p-3" style="background-color: #ededed">
+                    <div class="col-1 text-center lead">
+                        <img src="~/assets/img/default-profile.png" class="rounded-circle border-1 border-dark" alt="Alternate Text" width="75" height="75" />
+                        <small>@review.User.UserName</small>
+                    
+                    </div>
+                    <div class="col-11">
+                        <small class="text-black font-weight-bold">On: @review.UpdatedOn</small>
+                        <div class="shadow rounded bg-white p-2" style="height:100px;" >
+                            @review.ReviewDetail
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>    
 </div>
+@section Scripts {
+    <script>
+        let displayedReviewsCount = 5;
+        let bookId = @Model.Book.Id;
+
+        function addFiveCommentToReviewSection(data) {
+            let htmlString = "";
+            for (var i = 0; i < data.length; i++) {
+                htmlString += '<hr class="mt-5">';
+                htmlString += '<div class="row col-8 rounded p-3" style="background-color: #ededed">';
+                htmlString += '<div class="col-1 text-center lead">';
+                /*html do not understand ~ as root*/
+                htmlString += '<img src="/assets/img/default-profile.png" class="rounded-circle border-1 border-dark" alt="Alternate Text" width="75" height="75"/>';
+                htmlString += '<small>' + data[i].user.userName + '</small></div><div class="col-11">';
+                htmlString += '<small class="text-black font-weight-bold">On: ' + data[i].updatedOn + '</small>'
+                htmlString += '<div class="shadow rounded bg-white p-2" style="height:100px;">' + data[i].reviewDetail + '</div></div></div>';
+            }
+            $("#myProductReviews").append(htmlString);
+        }
+
+        $(document).scroll(function () {
+            if ($(document).height() <= $(window).scrollTop() + $(window).height()) {
+                //gửi ajax request tới handler OnGetLoadMoreReviews
+                $.ajax({
+                    url: "?handler=LoadMoreReviews",
+                    type: "get",
+                    data: { reviewsToSkipCountStr: displayedReviewsCount ,bookIdStr: bookId},
+                    contentType: "text/plain",
+                    dataType: "json",
+                    success: function (jsonData) {
+                        //add
+                        addFiveCommentToReviewSection(jsonData);
+                        displayedReviewsCount += 5;
+                    }
+                })
+            }
+        })
+
+    </script>
+
+}
