@@ -15,6 +15,8 @@
     <Compile Remove="Migrations\20220925153212_AddTagAndSubCategory.Designer.cs" />
     <Compile Remove="Migrations\20220925154653_AddTagAndSubCategory.cs" />
     <Compile Remove="Migrations\20220925154653_AddTagAndSubCategory.Designer.cs" />
+    <Compile Remove="Migrations\20221003144249_AddOrderAndOrderDetails.cs" />
+    <Compile Remove="Migrations\20221003144249_AddOrderAndOrderDetails.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

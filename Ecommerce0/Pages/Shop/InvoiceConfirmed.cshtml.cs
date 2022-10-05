@@ -14,7 +14,7 @@ namespace Ecommerce0.Pages.Shop
     [Authorize]
     public class InvoiceConfirmedModel : PageModel
     {
-        private ApplicationDbContext _db;
+        private readonly ApplicationDbContext _db;
         public InvoiceConfirmedModel(ApplicationDbContext db)
         {
             _db = db;

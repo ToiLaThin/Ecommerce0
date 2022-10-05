@@ -22,6 +22,11 @@ namespace Ecommerce0.Modals
 
         public DbSet<InvoiceDetail> InvoiceDetails { get; set; }
 
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderDetail> OrderDetails{ get; set; }
+
+
         public DbSet<IdentityUser> Users { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
