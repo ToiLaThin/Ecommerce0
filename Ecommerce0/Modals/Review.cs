@@ -20,7 +20,7 @@ namespace Ecommerce0.Modals
         public string CustomerId { get; set; }
 
         [ForeignKey("CustomerId")]
-        public IdentityUser User { get; set; }
+        public MyIdentityUser User { get; set; }
 
         [DataType(DataType.Text)]
         public string ReviewDetail { get; set; }
