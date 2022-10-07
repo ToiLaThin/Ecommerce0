@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ecommerce0.Modals;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,9 +11,9 @@ namespace Ecommerce0.Pages.Auth
 {
     public class LogoutModel : PageModel
     {
-        public SignInManager<IdentityUser> SignInManager { get; set; }
+        public SignInManager<MyIdentityUser> SignInManager { get; set; }
 
-        public LogoutModel(SignInManager<IdentityUser> signInManager)
+        public LogoutModel(SignInManager<MyIdentityUser> signInManager)
         {
             SignInManager = signInManager;
         }

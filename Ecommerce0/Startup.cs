@@ -30,7 +30,7 @@ namespace Ecommerce0
             //configuration de them entity framework database vao 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDbContext<AuthDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AuthDbContext>();
+            services.AddIdentity<MyIdentityUser, IdentityRole>().AddEntityFrameworkStores<AuthDbContext>();
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddSession();
             services.ConfigureApplicationCookie(config =>

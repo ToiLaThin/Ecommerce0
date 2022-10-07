@@ -13,7 +13,6 @@ namespace Ecommerce0.Pages.Shop
     public class OrderModel : PageModel
     {
         public ApplicationDbContext _db;
-
         [BindProperty]
         public Order WaitingOrder { get; set; }
         public OrderModel(ApplicationDbContext db)

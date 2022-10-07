@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Ecommerce0.Modals;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +16,9 @@ namespace Ecommerce0.Pages.Auth
     public class RoleUserAssignModel : PageModel
     {
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<MyIdentityUser> _userManager;
 
-        public RoleUserAssignModel(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        public RoleUserAssignModel(RoleManager<IdentityRole> roleManager, UserManager<MyIdentityUser> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;

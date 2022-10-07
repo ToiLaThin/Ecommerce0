@@ -26,8 +26,7 @@ namespace Ecommerce0.Modals
 
         public DbSet<OrderDetail> OrderDetails{ get; set; }
 
-
-        public DbSet<IdentityUser> Users { get; set; }
+        public DbSet<MyIdentityUser> Users { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
 

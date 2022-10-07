@@ -17,10 +17,10 @@ namespace Ecommerce0.Pages
         [BindProperty]
         public RegisterInfo RegisterInfo { get; set; }
 
-        private readonly UserManager<IdentityUser> userManager;
-        public SignInManager<IdentityUser> SignInManager { get; }
+        private readonly UserManager<MyIdentityUser> userManager;
+        public SignInManager<MyIdentityUser> SignInManager { get; }
 
-        public RegisterModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ApplicationDbContext db)
+        public RegisterModel(UserManager<MyIdentityUser> userManager, SignInManager<MyIdentityUser> signInManager, ApplicationDbContext db)
         {
             _db = db;
             this.userManager = userManager;
@@ -33,7 +33,7 @@ namespace Ecommerce0.Pages
         public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid){
-                var user = new IdentityUser()
+                var user = new MyIdentityUser()
                 {
                     UserName = RegisterInfo.UserName,
                     Email = RegisterInfo.Email

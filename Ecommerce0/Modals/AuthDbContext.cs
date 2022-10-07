@@ -11,5 +11,7 @@ namespace Ecommerce0.Modals
     {
         public AuthDbContext(DbContextOptions<AuthDbContext> options): base(options) {
         }
+
+        DbSet<MyIdentityUser> Users { get; set; }
     }
 }

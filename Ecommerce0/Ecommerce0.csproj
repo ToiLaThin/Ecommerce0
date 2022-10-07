@@ -17,6 +17,16 @@
     <Compile Remove="Migrations\20220925154653_AddTagAndSubCategory.Designer.cs" />
     <Compile Remove="Migrations\20221003144249_AddOrderAndOrderDetails.cs" />
     <Compile Remove="Migrations\20221003144249_AddOrderAndOrderDetails.Designer.cs" />
+    <Compile Remove="Migrations\20221007135559_AddAvatarPathToUsersInApplicationDbContext.cs" />
+    <Compile Remove="Migrations\20221007135559_AddAvatarPathToUsersInApplicationDbContext.Designer.cs" />
+    <Compile Remove="Migrations\20221007135747_AddAvatarPathToUsersInApplicationDbContext.cs" />
+    <Compile Remove="Migrations\20221007135747_AddAvatarPathToUsersInApplicationDbContext.Designer.cs" />
+    <Compile Remove="Migrations\20221007135920_AddAvatarPathToUsersInApplicationDbContext.cs" />
+    <Compile Remove="Migrations\20221007135920_AddAvatarPathToUsersInApplicationDbContext.Designer.cs" />
+    <Compile Remove="Migrations\20221007141945_AddAvatarPathToUsersInApplicationDbContext.cs" />
+    <Compile Remove="Migrations\20221007141945_AddAvatarPathToUsersInApplicationDbContext.Designer.cs" />
+    <Compile Remove="Migrations\AuthDb\20221007135053_AddUsersToAuthDbContext.cs" />
+    <Compile Remove="Migrations\AuthDb\20221007135053_AddUsersToAuthDbContext.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

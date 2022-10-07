@@ -15,9 +15,9 @@ namespace Ecommerce0.Pages.Auth
     {
         [BindProperty]
         public LoginInfo LoginInfo { get; set; }
-        public SignInManager<IdentityUser> SignInManager { get; }
+        public SignInManager<MyIdentityUser> SignInManager { get; }
 
-        public LoginModel(SignInManager<IdentityUser> signInManager)
+        public LoginModel(SignInManager<MyIdentityUser> signInManager)
         {
             SignInManager = signInManager;
         }

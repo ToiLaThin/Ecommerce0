@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ecommerce0.Modals;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,16 +14,16 @@ namespace Ecommerce0.Pages.Auth
     public class RoleUserIndexModel : PageModel
     {
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<MyIdentityUser> _userManager;
 
         public RoleUserIndexModel(RoleManager<IdentityRole> roleManager,
-                          UserManager<IdentityUser> userManager)
+                          UserManager<MyIdentityUser> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
         }
 
-        public class UserInList : IdentityUser
+        public class UserInList : MyIdentityUser
         {
             // Liệt kê các Role của User ví dụ: "Admin,Editor" ...
             public string Roles { set; get; }
