@@ -69,9 +69,15 @@
                         <i class="bi-cart-fill me-1"></i>
                         Cart
                         <span class="badge bg-dark text-white ms-1 rounded-pill">@GlobalVar.CartItemCount</span>
-                    </a>
-                    <li class="nav-item ">
-                        <a asp-page="/auth/logout" class="btn btn-outline-dark"><i class="fas fa-door-open p-1"></i>Logout</a>
+                    </a>                    
+                    <li id="myUserIcon" class="nav-item position-relative pl-5" style="cursor:pointer">
+                        <img src="~/assets/img/default-profile.png" alt="avatar" class="rounded-circle img-fluid mx-3" style="width: 35px;">@User.Identity.Name
+                        
+                        <div id="myUserOptions" class="container p-2 position-absolute top-100 l  bg-dark text-white-50 rounded text-center" style="width:250px;">
+                            <p><a href="/auth/profile" class="d-block btn btn-dark"><i class="fas fa-user px-3"></i>Profile</a></p>
+                            <p><a asp-page="/auth/logout" class="d-block btn btn-dark"><i class="fas fa-door-open px-3"></i>Logout</a></p>
+                            <p></p>
+                        </div>
                     </li>
                 </ul>
                 }
@@ -165,6 +171,18 @@
         @*Font Awesome icon script*@
         <script src="https://kit.fontawesome.com/4c8f96e5e8.js" crossorigin="anonymous"></script>
         @RenderSection("Scripts", required: false)
+        <script>
+            $(document).ready(function () {
+                $("#myUserOptions").hide();
+                $("#myUserOptions").mouseleave(function () {
+                    $("#myUserOptions").fadeOut();
+                });
+                $("#myUserIcon").mouseenter(function () {
+                    $("#myUserOptions").fadeToggle();
+
+                });
+            });
+        </script>
     </section>
 </body>
 </html>
