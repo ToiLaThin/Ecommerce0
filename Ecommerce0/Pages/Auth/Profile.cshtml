@@ -76,6 +76,12 @@
         }
     </style>
 }
+@{
+    foreach (var icoPath in Model.IconPaths)
+    {
+        <h2>@icoPath.ToString()</h2>
+    }
+}
 <section style="background-color: #eee;">
     <div class="container py-5">
         <div class="row">
@@ -198,19 +204,13 @@
                 </h2>
             </div>
             <div class="myModalBody d-flex flex-wrap justify-content-center align-items-center">
-                <div class="m-4 myProfileIcon">
-                    <img src="/assets/img/bg-showcase-1.jpg" width="120" />
-                </div>
-                <div class="m-4 myProfileIcon">
-                    <img src="/assets/img/bg-showcase-2.jpg" width="120" />
-                </div>
-                <div class="m-4 myProfileIcon">
-                    <img src="/assets/img/bg-showcase-3.jpg" width="120" />
-                </div>
-                <div class="m-4 myProfileIcon">
-                    <img src="/assets/img/bg-masthead.jpg" width="120" />
-                </div>
-                
+                @foreach(var iconPath in Model.IconPaths)
+                        {
+                    //phải có / trước @iconPath để html biết lấy root 
+                    <div class="m-4 myProfileIcon">
+                        <img src="/@iconPath" width="120" height="120"/>
+                    </div>
+                }
             </div>
         </div>
     </div>

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Ecommerce0.Modals;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,18 +19,25 @@ namespace Ecommerce0.Pages.Auth
         private ApplicationDbContext _db;
         private UserManager<MyIdentityUser> _userManager;
         private SignInManager<MyIdentityUser> _signInManager;
+        private IHostingEnvironment _environment;
         [BindProperty]
         public MyIdentityUser CurrUser { get; set; }
-
-        public ProfileModel(ApplicationDbContext db, UserManager<MyIdentityUser> userManager, SignInManager<MyIdentityUser> signInManager)
+        public String[] IconPaths { get; set; }
+        public ProfileModel(ApplicationDbContext db, UserManager<MyIdentityUser> userManager, SignInManager<MyIdentityUser> signInManager, IHostingEnvironment environment)
         {
             _db = db;
             _userManager = userManager;
             _signInManager = signInManager;
+            _environment = environment;
         }
         public void OnGet()
         {
-            CurrUser = _db.Users.Where(u => u.UserName.Equals(User.Identity.Name)).SingleOrDefault();           
+            CurrUser = _db.Users.Where(u => u.UserName.Equals(User.Identity.Name)).SingleOrDefault();
+            IconPaths = Directory.GetFiles(Path.Combine(_environment.WebRootPath, "assets", "img"));
+            for (int i = 0; i < IconPaths.Length; i++){
+                IconPaths[i] = Path.GetRelativePath(_environment.WebRootPath, IconPaths[i]);
+            }
+
         }
 
         public async Task<IActionResult> OnPostAsync(string Id)
