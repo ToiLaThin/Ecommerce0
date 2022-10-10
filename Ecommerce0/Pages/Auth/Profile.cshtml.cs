@@ -40,12 +40,14 @@ namespace Ecommerce0.Pages.Auth
                 userToEdit.UserName = CurrUser.UserName;
                 userToEdit.PhoneNumber = CurrUser.PhoneNumber;
                 userToEdit.Email = CurrUser.Email;
+                userToEdit.AvatarPath = CurrUser.AvatarPath;
                 await _userManager.UpdateAsync(userToEdit);
 
                 //update in Users table not just AspNetUsers
                 userToEditInMyDb.UserName = CurrUser.UserName;
                 userToEditInMyDb.PhoneNumber = CurrUser.PhoneNumber;
                 userToEditInMyDb.Email = CurrUser.Email;
+                userToEditInMyDb.AvatarPath = CurrUser.AvatarPath;
                 await _db.SaveChangesAsync();
 
                 //vấn đề là HttpContext.User.Identity.Name không cập nhật cho đến khi logout nên nếu return Page() thì sẽ CurrUser sẽ là null

@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<MyIdentityUser> SignInManager
+@inject ApplicationDbContext Db
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,22 +65,23 @@
 
                 @if(User.Identity.IsAuthenticated)
                 {
-                <ul class="navbar-nav d-flex justify-content-end align-items-center flex-grow-1">
-                    <a asp-page="/shop/cart" class="btn btn-outline-dark m-2" type="submit">
-                        <i class="bi-cart-fill me-1"></i>
-                        Cart
-                        <span class="badge bg-dark text-white ms-1 rounded-pill">@GlobalVar.CartItemCount</span>
-                    </a>                    
-                    <li id="myUserIcon" class="nav-item position-relative pl-5" style="cursor:pointer">
-                        <img src="~/assets/img/default-profile.png" alt="avatar" class="rounded-circle img-fluid mx-3" style="width: 35px;">@User.Identity.Name
+                    var currUser = Db.Users.Where(u => u.UserName.Equals(User.Identity.Name)).SingleOrDefault();
+                    <ul class="navbar-nav d-flex justify-content-end align-items-center flex-grow-1">
+                        <a asp-page="/shop/cart" class="btn btn-outline-dark m-2" type="submit">
+                            <i class="bi-cart-fill me-1"></i>
+                            Cart
+                            <span class="badge bg-dark text-white ms-1 rounded-pill">@GlobalVar.CartItemCount</span>
+                        </a>                    
+                        <li id="myUserIcon" class="nav-item position-relative pl-5" style="cursor:pointer">
+                            <img src="@currUser.AvatarPath" alt="avatar" class="rounded-circle img-fluid mx-3" style="width:35px;height:35px;">@User.Identity.Name
                         
-                        <div id="myUserOptions" class="container p-2 position-absolute top-100 l  bg-dark text-white-50 rounded text-center" style="width:250px;">
-                            <p><a href="/auth/profile" class="d-block btn btn-dark"><i class="fas fa-user px-3"></i>Profile</a></p>
-                            <p><a asp-page="/auth/logout" class="d-block btn btn-dark"><i class="fas fa-door-open px-3"></i>Logout</a></p>
-                            <p></p>
-                        </div>
-                    </li>
-                </ul>
+                            <div id="myUserOptions" class="container p-2 position-absolute top-100 l  bg-dark text-white-50 rounded text-center" style="width:250px;">
+                                <p><a href="/auth/profile" class="d-block btn btn-dark"><i class="fas fa-user px-3"></i>Profile</a></p>
+                                <p><a asp-page="/auth/logout" class="d-block btn btn-dark"><i class="fas fa-door-open px-3"></i>Logout</a></p>
+                                <p></p>
+                            </div>
+                        </li>
+                    </ul>
                 }
                 else
                 {
