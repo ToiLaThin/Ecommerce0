@@ -36,8 +36,11 @@ namespace Ecommerce0.Pages.Me
             var book = _db.Books.Where(b => b.Id == id).Include(b => b.Category).FirstOrDefault();
             Book = book;
 
-            var currUser = _db.Users.Where(u => u.UserName.Equals(User.Identity.Name)).SingleOrDefault();
-            CurrentUserId = currUser.Id;
+            if(User.Identity.IsAuthenticated)
+            {
+                var currUser = _db.Users.Where(u => u.UserName.Equals(User.Identity.Name)).SingleOrDefault();
+                CurrentUserId = currUser.Id;
+            }    
 
             TopFiveRecentReviewsOfThisProduct = _db.Reviews.Include(rv => rv.User).Where(rv => rv.BookId == Book.Id).OrderByDescending(rv => rv.UpdatedOn).Take(5).ToList();
         }

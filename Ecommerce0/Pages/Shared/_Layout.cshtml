@@ -73,8 +73,15 @@
                             <span class="badge bg-dark text-white ms-1 rounded-pill">@GlobalVar.CartItemCount</span>
                         </a>                    
                         <li id="myUserIcon" class="nav-item position-relative pl-5" style="cursor:pointer">
-                            <img src="@currUser.AvatarPath" alt="avatar" class="rounded-circle img-fluid mx-3" style="width:35px;height:35px;">@User.Identity.Name
-                        
+                            @if (currUser.AvatarPath != null)
+                            {
+                                <img src="@currUser.AvatarPath" alt="avatar" class="rounded-circle img-fluid mx-3" style="width:35px;height:35px;">@User.Identity.Name
+                            }
+                            else
+                            {
+                                <img src="~/assets/img/default-profile.png" alt="avatar" class="rounded-circle img-fluid mx-3" style="width:35px;height:35px;">@User.Identity.Name
+                            }
+
                             <div id="myUserOptions" class="container p-2 position-absolute top-100 l  bg-dark text-white-50 rounded text-center" style="width:250px;">
                                 <p><a href="/auth/profile" class="d-block btn btn-dark"><i class="fas fa-user px-3"></i>Profile</a></p>
                                 <p><a asp-page="/auth/logout" class="d-block btn btn-dark"><i class="fas fa-door-open px-3"></i>Logout</a></p>
